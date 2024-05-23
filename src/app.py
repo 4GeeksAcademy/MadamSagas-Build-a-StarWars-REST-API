@@ -487,9 +487,9 @@ def delete_people(people_id):
         return jsonify({"msg": f"El personaje con el ID {people_id} no existe"}), 404
 
     # Eliminar el registro de la base de datos
-    favorite_people = FavoritePeople.query.filter_by(people_id=people_id,).all()
-    for favorite in favorite_people:
-        db.session.delete(favorite)
+    # favorite_people = FavoritePeople.query.filter_by(people_id=people_id,).all()
+    # for favorite in favorite_people:
+    #     db.session.delete(favorite)
 
     db.session.delete(people)
     db.session.commit()

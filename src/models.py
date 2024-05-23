@@ -102,10 +102,10 @@ class Planets(db.Model):
 class FavoritePlanets(db.Model):
     __tablename__= "favorite_planets"
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    planet_id = db.Column(db.Integer, db.ForeignKey('planets.id',))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    planet_id = db.Column(db.Integer, db.ForeignKey('planets.id', ondelete='CASCADE'))
     user_id_relationship = db.relationship(User)
-    planet_id_relationship = db.relationship(Planets)
+    planet_id_relationship = db.relationship(Planets, backref=db.backref('favorites', cascade='all, delete-orphan'))
 
     def __repr__(self):
         return f"Al usuario {self.user_id} le gusta el planeta {self.planet_id}"
@@ -120,10 +120,10 @@ class FavoritePlanets(db.Model):
 class FavoritePeople(db.Model):
     __tablename__= "favorite_people"
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    people_id = db.Column(db.Integer, db.ForeignKey('people.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    people_id = db.Column(db.Integer, db.ForeignKey('people.id', ondelete= 'CASCADE'))
     user_id_relationship = db.relationship(User)
-    people_id_relationship = db.relationship(People)
+    people_id_relationship = db.relationship(People, backref=db.backref('favorites', cascade='all, delete-orphan'))
 
     def __repr__(self):
         return f"Al usuario {self.user_id} le gusta el personaje {self.people_id}"
